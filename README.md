@@ -1,6 +1,6 @@
 # pong
 
-Just a Pong clone in MonoGame. Learning experience.
+Just a Pong clone in [MonoGame](https://www.monogame.net). Learning experience.
 
 ## References
 
