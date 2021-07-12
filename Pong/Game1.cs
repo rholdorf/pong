@@ -9,7 +9,6 @@ namespace Pong
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Vector2 ballPosition;
 
         private Puck _puck;
 
@@ -22,8 +21,7 @@ namespace Pong
 
         protected override void Initialize()
         {
-            ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            _puck = new Puck(GraphicsDevice, ballPosition, 24);
+            _puck = new Puck(GraphicsDevice, new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2), 24);
 
             base.Initialize();
         }

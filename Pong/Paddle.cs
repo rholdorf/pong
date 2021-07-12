@@ -3,8 +3,11 @@ namespace Pong
 {
     public class Paddle
     {
-        public Paddle()
+        private PaddleSide _paddleSide;
+
+        public Paddle(PaddleSide side)
         {
+            _paddleSide = side;
         }
     }
 }
