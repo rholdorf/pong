@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/Users/rui/dev/Pong/Pong/Content/ball.png","/Users/rui/dev/Pong/Pong/Content/bin/DesktopGL/Content/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,0.788103
+"/Users/rui/dev/Pong/Pong/Content/msxcolors.bmp","/Users/rui/dev/Pong/Pong/Content/bin/DesktopGL/Content/msxcolors.xnb","TextureProcessor","Texture2DContent",1256,1685,0.255133
