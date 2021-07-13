@@ -37,5 +37,17 @@ namespace Pong
             texture.SetData(colorData);
             return texture;
         }
+
+        public static Texture2D CreateRect(Rectangle rect, GraphicsDevice graphicsDevice, Color color)
+        {
+            var texture = new Texture2D(graphicsDevice, rect.Width, rect.Height);
+            var colorData = new Color[rect.Width * rect.Height];
+
+            for (int i = 0; i < colorData.Length; i++)
+                colorData[i] = color;
+
+            texture.SetData(colorData);
+            return texture;
+        }
     }
 }
