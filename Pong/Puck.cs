@@ -31,17 +31,6 @@ namespace Pong
         {
             var offset = _ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (keyboardState.IsKeyDown(Keys.Up))
-                _position.Y -= offset;
-
-            if (keyboardState.IsKeyDown(Keys.Down))
-                _position.Y += offset;
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-                _position.X -= offset;
-
-            if (keyboardState.IsKeyDown(Keys.Right))
-                _position.X += offset;
 
             Move();
             CheckEdges();

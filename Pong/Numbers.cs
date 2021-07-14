@@ -16,9 +16,13 @@ namespace Pong
                         1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
+                        1,0,0,1,
+                        1,0,0,1,
                         1,1,1,1 },
             // 1
             new int[] { 0,0,0,1,
+                        0,0,0,1,
+                        0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
@@ -30,7 +34,9 @@ namespace Pong
             new int[] { 1,1,1,1,
                         0,0,0,1,
                         0,0,0,1,
+                        0,0,0,1,
                         1,1,1,1,
+                        1,0,0,0,
                         1,0,0,0,
                         1,0,0,0,
                         1,0,0,0,
@@ -39,7 +45,9 @@ namespace Pong
             new int[] { 1,1,1,1,
                         0,0,0,1,
                         0,0,0,1,
+                        0,0,0,1,
                         1,1,1,1,
+                        0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
@@ -48,7 +56,9 @@ namespace Pong
             new int[] { 1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
+                        1,0,0,1,
                         1,1,1,1,
+                        0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
@@ -57,7 +67,9 @@ namespace Pong
             new int[] { 1,1,1,1,
                         1,0,0,0,
                         1,0,0,0,
+                        1,0,0,0,
                         1,1,1,1,
+                        0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
@@ -66,7 +78,9 @@ namespace Pong
             new int[] { 1,0,0,0,
                         1,0,0,0,
                         1,0,0,0,
+                        1,0,0,0,
                         1,1,1,1,
+                        1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
@@ -79,12 +93,16 @@ namespace Pong
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
+                        0,0,0,1,
+                        0,0,0,1,
                         0,0,0,1 },
             // 8
             new int[] { 1,1,1,1,
                         1,0,0,1,
                         1,0,0,1,
+                        1,0,0,1,
                         1,1,1,1,
+                        1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
                         1,0,0,1,
@@ -93,7 +111,9 @@ namespace Pong
             new int[] { 1,1,1,1,
                         1,0,0,1,
                         1,0,0,1,
+                        1,0,0,1,
                         1,1,1,1,
+                        0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
@@ -106,7 +126,7 @@ namespace Pong
         {
             foreach (var currentNumber in _bits)
             {
-                var colorData = new Color[4 * 10];
+                var colorData = new Color[4 * 12];
                 for (int i = 0; i < currentNumber.Length; i++)
                 {
                     if (currentNumber[i] == 1)
@@ -117,7 +137,7 @@ namespace Pong
                         colorData[i] = Color.Transparent;
                 }
 
-                var numberTexture = new Texture2D(graphicsDevice, 4, 10);
+                var numberTexture = new Texture2D(graphicsDevice, 4, 12);
                 numberTexture.SetData(colorData);
                 _numberTextures.Add(numberTexture);
             }
