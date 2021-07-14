@@ -17,17 +17,19 @@ namespace Pong
         private Paddle _rightPaddle;
         private Puck _puck;
         private Net _net;
-        private Numbers _numbers;
+        private DigitsProvider _numbers;
+        private Score _leftScore;
+        private Score _rightScore;
 
         private const int WIDTH = 800;
-        private const int HEIGHT = 630;
+        private const int HEIGHT = 700;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = false;
         }
 
         protected override void Initialize()
@@ -37,36 +39,21 @@ namespace Pong
             _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
 
-            Window.ClientSizeChanged += Window_ClientSizeChanged;
+            _backgroundRectangle = new Rectangle(0, 0, WIDTH, HEIGHT);
 
-            _puck = new Puck(GraphicsDevice, new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2), new Rectangle(0, 0, 10, 10));
+            _numbers = new DigitsProvider(GraphicsDevice);
+            _puck = new Puck(GraphicsDevice, new Vector2(WIDTH / 2, HEIGHT / 2), new Rectangle(0, 0, 10, 10));
             _net = new Net(GraphicsDevice);
-            _leftPaddle = new Paddle(GraphicsDevice, PaddleSide.Left);
-            _rightPaddle = new Paddle(GraphicsDevice, PaddleSide.Right);
-            _backgroundColor = new Color(0x00, 0x00, 0x00, 0x80);
+            _leftPaddle = new Paddle(GraphicsDevice, Side.Left);
+            _rightPaddle = new Paddle(GraphicsDevice, Side.Right);
+            _leftScore = new Score(GraphicsDevice, Side.Left, _numbers);
+            _rightScore = new Score(GraphicsDevice, Side.Right, _numbers);
+            _backgroundColor = new Color(0x00, 0x00, 0x00, 0x70);
 
-            _numbers = new Numbers(GraphicsDevice);
+            _leftScore.SetScore(8);
+            _rightScore.SetScore(10);
 
-            Window_ClientSizeChanged(null, null);
             base.Initialize();
-        }
-
-        private void Window_ClientSizeChanged(object sender, EventArgs e)
-        {
-            //var width = Window.ClientBounds.Width;
-            //var height = Window.ClientBounds.Height;
-
-            //if (height < width / (float)_graphics.PreferredBackBufferWidth * _graphics.PreferredBackBufferHeight)
-            //    width = (int)(height / (float)_graphics.PreferredBackBufferHeight * _graphics.PreferredBackBufferWidth);
-            //else
-            //    height = (int)(width / (float)_graphics.PreferredBackBufferWidth * _graphics.PreferredBackBufferHeight);
-
-            //var x = (Window.ClientBounds.Width - width) / 2;
-            //var y = (Window.ClientBounds.Height - height) / 2;
-            _backgroundRectangle = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-            _net.Resize();
-            _leftPaddle.Resize();
-            _rightPaddle.Resize();
         }
 
         protected override void LoadContent()
@@ -87,25 +74,25 @@ namespace Pong
             _leftPaddle.Update(gameTime, kstate);
             _rightPaddle.Update(gameTime, kstate);
 
+            _leftScore.SetScore(gameTime.TotalGameTime.Seconds);
+            _rightScore.SetScore(gameTime.TotalGameTime.Seconds);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-
             _spriteBatch.Draw(_1Pixel, _backgroundRectangle, _backgroundColor); // fade effect, instead of clear
 
-            _spriteBatch.Draw(_numbers.GetTexture(0), new Rectangle(30, 20, 40, 120), Color.White);
-
+            _leftScore.Show(_spriteBatch);
+            _rightScore.Show(_spriteBatch);
             _net.Show(_spriteBatch);
             _leftPaddle.Show(_spriteBatch);
             _rightPaddle.Show(_spriteBatch);
             _puck.Show(_spriteBatch);
 
             _spriteBatch.End();
-
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);
         }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong
 {
-    public class Numbers
+    public class DigitsProvider
     {
         private int[][] _bits = new int[][]{
             // 0
@@ -117,12 +117,12 @@ namespace Pong
                         0,0,0,1,
                         0,0,0,1,
                         0,0,0,1,
-                        0,0,0,1 }
+                        0,0,0,1 },
         };
 
         private List<Texture2D> _numberTextures = new List<Texture2D>(10);
 
-        public Numbers(GraphicsDevice graphicsDevice)
+        public DigitsProvider(GraphicsDevice graphicsDevice)
         {
             foreach (var currentNumber in _bits)
             {
@@ -143,7 +143,7 @@ namespace Pong
             }
         }
 
-        public Texture2D GetTexture(int index)
+        public Texture2D GetDigit(int index)
         {
             return _numberTextures[index];
         }

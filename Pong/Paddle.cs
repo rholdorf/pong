@@ -10,6 +10,7 @@ namespace Pong
         private GraphicsDevice _graphicsDevice;
         private const int WIDTH = 7;
         private const int HEIGHT = 40;
+        private int _distanceFromBorder = 75;
         private Texture2D _paddleTexture;
         private Vector2 _position;
         private float _speed;
@@ -17,15 +18,18 @@ namespace Pong
         private int _topLimit;
         private int _bottomLimit;
 
-        public Paddle(GraphicsDevice graphicsDevice, PaddleSide side)
+        public Paddle(GraphicsDevice graphicsDevice, Side side)
         {
             _graphicsDevice = graphicsDevice;
             _paddleTexture = TextureMaker.CreateRect(new Rectangle(0, 0, WIDTH, HEIGHT), graphicsDevice, Color.White);
             _speed = 400F;
-            if (side == PaddleSide.Left)
-                _position = new Vector2(20, _graphicsDevice.Viewport.Height / 2 - HEIGHT / 2);
+            if (side == Side.Left)
+                _position = new Vector2(_distanceFromBorder, _graphicsDevice.Viewport.Height / 2 - HEIGHT / 2);
             else
-                _position = new Vector2(_graphicsDevice.Viewport.Width - 20, _graphicsDevice.Viewport.Height / 2 - HEIGHT / 2);
+                _position = new Vector2(_graphicsDevice.Viewport.Width - _distanceFromBorder - WIDTH, _graphicsDevice.Viewport.Height / 2 - HEIGHT / 2);
+
+            _topLimit = 20;
+            _bottomLimit = _graphicsDevice.Viewport.Height - 20 - HEIGHT;
         }
 
         public void Show(SpriteBatch spriteBatch)
@@ -33,16 +37,9 @@ namespace Pong
             spriteBatch.Draw(_paddleTexture, _position, Color.White);
         }
 
-        public void Resize()
-        {
-            _topLimit = 20;
-            _bottomLimit = _graphicsDevice.Viewport.Height - 20 - HEIGHT;
-        }
-
         public void Update(GameTime gameTime, KeyboardState keyboardState)
         {
             var offset = _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             if (keyboardState.IsKeyDown(Keys.Up))
                 _position.Y -= offset;
 
