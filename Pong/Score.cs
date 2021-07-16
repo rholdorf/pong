@@ -12,7 +12,7 @@ namespace Pong
         private DigitsProvider _digitsProvider;
         private Rectangle _firstRectangle;
         private Rectangle _secondRectangle;
-        private int _score;
+        private int _score = -1;
 
         public Score(GraphicsDevice graphicsDevice, Side side, DigitsProvider digitsProvider)
         {
@@ -35,6 +35,7 @@ namespace Pong
             if (score == _score)
                 return;
 
+            _score = score;
             if (score > 9)
             {
                 var ss = score.ToString();
@@ -49,8 +50,6 @@ namespace Pong
                 _secondDigit = _digitsProvider.GetDigit(score);
             }
         }
-
-
 
         public void Show(SpriteBatch spriteBatch)
         {

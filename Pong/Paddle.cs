@@ -17,9 +17,11 @@ namespace Pong
         private float _ySpeed = 0;
         private int _topLimit;
         private int _bottomLimit;
+        private Side _side;
 
         public Paddle(GraphicsDevice graphicsDevice, Side side)
         {
+            _side = side;
             _graphicsDevice = graphicsDevice;
             _paddleTexture = TextureMaker.CreateRect(new Rectangle(0, 0, WIDTH, HEIGHT), graphicsDevice, Color.White);
             _speed = 400F;
@@ -32,6 +34,10 @@ namespace Pong
             _bottomLimit = _graphicsDevice.Viewport.Height - 20 - HEIGHT;
         }
 
+        public int Width { get { return WIDTH; } }
+        public int Height { get { return HEIGHT; } }
+        public Vector2 Position { get { return _position; } }
+
         public void Show(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_paddleTexture, _position, Color.White);
@@ -40,11 +46,23 @@ namespace Pong
         public void Update(GameTime gameTime, KeyboardState keyboardState)
         {
             var offset = _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (keyboardState.IsKeyDown(Keys.Up))
-                _position.Y -= offset;
 
-            if (keyboardState.IsKeyDown(Keys.Down))
-                _position.Y += offset;
+            if (_side == Side.Left)
+            {
+                if (keyboardState.IsKeyDown(Keys.A))
+                    _position.Y -= offset;
+
+                if (keyboardState.IsKeyDown(Keys.Z))
+                    _position.Y += offset;
+            }
+            else
+            {
+                if (keyboardState.IsKeyDown(Keys.Up))
+                    _position.Y -= offset;
+
+                if (keyboardState.IsKeyDown(Keys.Down))
+                    _position.Y += offset;
+            }
 
             Move();
             CheckEdges();

@@ -36,16 +36,7 @@ namespace Pong
             }
 
             _dashesTexture.SetData(colorData);
-            Resize();
-        }
-
-        public void Resize()
-        {
-            _rectangle = new Rectangle(
-                _graphicsDevice.Viewport.Width / 2,
-                0,
-                1,
-                _graphicsDevice.Viewport.Height);
+            _rectangle = new Rectangle(_graphicsDevice.Viewport.Width / 2, 0, 1, _graphicsDevice.Viewport.Height);
         }
 
         public void Show(SpriteBatch spriteBatch)
